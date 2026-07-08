@@ -22,22 +22,34 @@
 
             <div class="form-group">
                 <label for="exam-title">Exam Title</label>
-                <input
-                    type="text"
-                    id="exam-title"
-                    placeholder="Example: JavaScript Basics">
+                <input type="text" id="exam-title" placeholder="Example: JavaScript Basics">
+            </div>
+            <div class="form-group">
+                <label for="exam-description">Description</label>
+                <textarea id="exam-description" placeholder="Enter exam description"></textarea>
             </div>
 
+            <div class="form-group">
+                <label for="exam-category">Category</label>
+                <input type="text" id="exam-category" placeholder="Example: JavaScript">
+            </div>
+
+            <div class="form-group">
+                <label for="exam-code">Exam Code</label>
+                <input type="text" id="exam-code" placeholder="Example: JS101">
+            </div>
+
+            <div class="form-group">
+                <label for="exam-duration">Duration in minutes</label>
+                <input type="number" id="exam-duration" min="1" placeholder="Example: 30">
+            </div>
             <hr>
 
             <h2>Add Question</h2>
 
             <div class="form-group">
                 <label for="question-text">Question Text</label>
-                <input
-                    type="text"
-                    id="question-text"
-                    placeholder="Enter question text">
+                <input type="text" id="question-text" placeholder="Enter question text">
             </div>
 
             <div class="form-group">
@@ -62,12 +74,7 @@
 
             <div class="form-group">
                 <label for="correct-answer">Correct Answer Number</label>
-                <input
-                    type="number"
-                    id="correct-answer"
-                    min="1"
-                    max="4"
-                    placeholder="1-4">
+                <input type="number" id="correct-answer" min="1" max="4" placeholder="1-4">
             </div>
 
             <p id="create-exam-message" class="message"></p>

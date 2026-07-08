@@ -7,6 +7,10 @@ const CURRENT_USER_KEY = "currentUser";
 const examService = new ExamService();
 
 const examTitleInput = document.getElementById("exam-title");
+const examDescriptionInput = document.getElementById("exam-description");
+const examCategoryInput = document.getElementById("exam-category");
+const examCodeInput = document.getElementById("exam-code");
+const examDurationInput = document.getElementById("exam-duration");
 const questionTextInput = document.getElementById("question-text");
 
 const answer1Input = document.getElementById("answer-1");
@@ -39,6 +43,10 @@ if (!currentUserData) {
 
 addQuestionButton.addEventListener("click", function () {
     const title = examTitleInput.value.trim();
+    const description = examDescriptionInput.value.trim();
+    const category = examCategoryInput.value.trim();
+    const examCode = examCodeInput.value.trim();
+    const duration = examDurationInput.value.trim();
     const questionText = questionTextInput.value.trim();
 
     const answers = [
@@ -59,8 +67,17 @@ addQuestionButton.addEventListener("click", function () {
         showMessage("Please enter question text.", "error");
         return;
     }
+    if (!examCode) {
+        showMessage("Please enter exam code.", "error");
+        return;
+    }
 
-    if (answers.some(function(answer) {
+    if (!duration || Number(duration) <= 0) {
+        showMessage("Please enter valid duration.", "error");
+        return;
+    }
+
+    if (answers.some(function (answer) {
         return answer === "";
     })) {
         showMessage("Please fill all 4 answers.", "error");
@@ -73,7 +90,15 @@ addQuestionButton.addEventListener("click", function () {
     }
 
     if (!currentExam) {
-        currentExam = new Exam(title, currentUser.id, currentUser.fullName);
+        currentExam = new Exam(
+            title,
+            currentUser.id,
+            currentUser.fullName,
+            description,
+            category,
+            examCode,
+            duration
+        );
     }
 
     const correctAnswerIndex = correctAnswerNumber - 1;
@@ -106,7 +131,7 @@ saveExamButton.addEventListener("click", function () {
 function renderQuestionsPreview() {
     questionsList.innerHTML = "";
 
-    currentExam.questions.forEach(function(question, index) {
+    currentExam.questions.forEach(function (question, index) {
         const questionDiv = document.createElement("div");
         questionDiv.className = "question-preview-card";
 
