@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+
+    <link rel="stylesheet" href="css/teacher.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <header class="dashboard-header">
+            <h1>Teacher Dashboard</h1>
+            <p id="teacher-name">Welcome, Teacher</p>
+
+            <button id="logout-btn" class="logout-button">
+                Logout
+            </button>
+        </header>
+
+        <main class="dashboard-card">
+
+            <h2>Manage Exams</h2>
+
+            <p class="dashboard-subtitle">
+                Create new exams, view existing exams, and manage exam details.
+            </p>
+
+            <div class="dashboard-actions">
+
+                <a href="createExam.html" class="dashboard-button primary">
+                    Create New Exam
+                </a>
+
+                <a href="examDetails.html" class="dashboard-button secondary">
+                    Exam Details
+                </a>
+
+            </div>
+            <section class="my-exams-section">
+                <h2>My Exams</h2>
+                <div id="teacher-exam-list"></div>
+            </section>
+            <section class="info-section">
+                <h3>Teacher can:</h3>
+
+                <ul>
+                    <li>Create exams</li>
+                    <li>Add American questions</li>
+                    <li>Choose the correct answer</li>
+                    <li>Save exams in localStorage</li>
+                    <li>View exams created by the teacher</li>
+                </ul>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="js/teacher.js"></script>
+</body>
+
+</html>
