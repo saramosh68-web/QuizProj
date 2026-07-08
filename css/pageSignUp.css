@@ -97,3 +97,32 @@ body {
 .auth-link a:hover {
   text-decoration: underline;
 }
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #16a34a;
+}
+.message {
+  min-height: 20px;
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.message.success {
+  color: #16a34a;
+}
+
+.message.error {
+  color: #dc2626;
+}
