@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="css/student.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <header class="dashboard-header">
+            <h1>Student Dashboard</h1>
+
+            <p id="student-name">
+                Welcome, Student
+            </p>
+
+            <button id="logout-btn" class="logout-button">
+                Logout
+            </button>
+        </header>
+
+        <main class="dashboard-card">
+
+            <h2>My Exams</h2>
+
+            <p class="dashboard-subtitle">
+                Search for exams, view exams you already completed, and see your grades.
+            </p>
+
+            <div class="dashboard-actions">
+                <a href="searchExam.html" class="dashboard-button primary">
+                    Search Exam
+                </a>
+            </div>
+
+            <section class="summary-section">
+                <div class="summary-card">
+                    <h3>Completed Exams</h3>
+                    <p id="completed-count">0</p>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Average Grade</h3>
+                    <p id="average-grade">0%</p>
+                </div>
+            </section>
+
+            <section class="student-results-section">
+                <h2>Previous Results</h2>
+
+                <div id="student-results-list"></div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="js/student.js"></script>
+</body>
+
+</html>

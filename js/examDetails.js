@@ -1,6 +1,7 @@
 import { ExamService } from "./services/ExamService.js";
 
 const CURRENT_USER_KEY = "currentUser";
+const RESULTS_KEY = "examResults";
 
 const examService = new ExamService();
 
@@ -56,20 +57,60 @@ function loadExamDetails() {
 
 function renderViewMode() {
     detailsContainer.innerHTML = `
-        <h2>${currentExam.title}</h2>
+        <section class="exam-info-section">
+            <h2>${currentExam.title}</h2>
 
-        <p><strong>Teacher:</strong> ${currentExam.teacherName}</p>
-        <p><strong>Questions:</strong> ${currentExam.questions.length}</p>
-        <p><strong>Created:</strong> ${new Date(currentExam.createdAt).toLocaleString()}</p>
+            <p><strong>ID:</strong> ${currentExam.id}</p>
+            <p><strong>Exam Name:</strong> ${currentExam.title}</p>
+            <p><strong>Description:</strong> ${currentExam.description || "No description"}</p>
+            <p><strong>Category:</strong> ${currentExam.category || "No category"}</p>
+            <p><strong>Exam Code:</strong> ${currentExam.examCode || "No code"}</p>
+            <p><strong>Duration:</strong> ${currentExam.duration || "No duration"} minutes</p>
+            <p><strong>Teacher:</strong> ${currentExam.teacherName}</p>
+            <p><strong>Questions:</strong> ${currentExam.questions.length}</p>
+            <p><strong>Created:</strong> ${new Date(currentExam.createdAt).toLocaleString()}</p>
 
-        <button id="edit-exam-btn" class="action-button edit">
-            Edit Exam
-        </button>
+            <button id="edit-exam-btn" class="action-button edit">
+                Edit Exam
+            </button>
+        </section>
 
         <hr>
 
-        <h3>Questions</h3>
+        <section>
+            <h3>Questions</h3>
+            <div id="questions-container"></div>
+        </section>
+
+        <hr>
+
+        <section>
+            <h3>Exam Results</h3>
+            <div id="exam-results-container"></div>
+        </section>
     `;
+
+    renderQuestionsView();
+    renderExamResults();
+
+    const editButton = document.getElementById("edit-exam-btn");
+
+    editButton.addEventListener("click", function() {
+        renderEditMode();
+    });
+}
+
+function renderQuestionsView() {
+    const questionsContainer = document.getElementById("questions-container");
+
+    questionsContainer.innerHTML = "";
+
+    if (currentExam.questions.length === 0) {
+        questionsContainer.innerHTML = `
+            <p class="empty-message">This exam has no questions.</p>
+        `;
+        return;
+    }
 
     currentExam.questions.forEach(function(question, index) {
         const questionDiv = document.createElement("div");
@@ -92,13 +133,49 @@ function renderViewMode() {
             </ol>
         `;
 
-        detailsContainer.appendChild(questionDiv);
+        questionsContainer.appendChild(questionDiv);
+    });
+}
+
+function renderExamResults() {
+    const resultsContainer = document.getElementById("exam-results-container");
+
+    const data = localStorage.getItem(RESULTS_KEY);
+
+    if (!data) {
+        resultsContainer.innerHTML = `
+            <p class="empty-message">No results for this exam yet.</p>
+        `;
+        return;
+    }
+
+    const allResults = JSON.parse(data);
+
+    const examResults = allResults.filter(function(result) {
+        return String(result.examId) === String(currentExam.id);
     });
 
-    const editButton = document.getElementById("edit-exam-btn");
+    if (examResults.length === 0) {
+        resultsContainer.innerHTML = `
+            <p class="empty-message">No results for this exam yet.</p>
+        `;
+        return;
+    }
 
-    editButton.addEventListener("click", function() {
-        renderEditMode();
+    resultsContainer.innerHTML = "";
+
+    examResults.forEach(function(result) {
+        const resultDiv = document.createElement("div");
+        resultDiv.className = "result-card";
+
+        resultDiv.innerHTML = `
+            <h4>${result.studentName}</h4>
+            <p><strong>Score:</strong> ${result.score} / ${result.totalQuestions}</p>
+            <p><strong>Grade:</strong> ${result.percent}%</p>
+            <p><strong>Date:</strong> ${new Date(result.createdAt).toLocaleString()}</p>
+        `;
+
+        resultsContainer.appendChild(resultDiv);
     });
 }
 
@@ -107,11 +184,41 @@ function renderEditMode() {
         <h2>Edit Exam</h2>
 
         <div class="form-group">
-            <label for="edit-exam-title">Exam Title</label>
+            <label for="edit-exam-title">Exam Name</label>
             <input
                 type="text"
                 id="edit-exam-title"
                 value="${currentExam.title}">
+        </div>
+
+        <div class="form-group">
+            <label for="edit-description">Description</label>
+            <textarea id="edit-description">${currentExam.description || ""}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="edit-category">Category</label>
+            <input
+                type="text"
+                id="edit-category"
+                value="${currentExam.category || ""}">
+        </div>
+
+        <div class="form-group">
+            <label for="edit-exam-code">Exam Code</label>
+            <input
+                type="text"
+                id="edit-exam-code"
+                value="${currentExam.examCode || ""}">
+        </div>
+
+        <div class="form-group">
+            <label for="edit-duration">Duration in minutes</label>
+            <input
+                type="number"
+                id="edit-duration"
+                min="1"
+                value="${currentExam.duration || ""}">
         </div>
 
         <hr>
@@ -133,7 +240,22 @@ function renderEditMode() {
         </div>
     `;
 
+    renderQuestionsEdit();
+
+    const saveButton = document.getElementById("save-changes-btn");
+    const cancelButton = document.getElementById("cancel-edit-btn");
+
+    saveButton.addEventListener("click", saveChanges);
+
+    cancelButton.addEventListener("click", function() {
+        renderViewMode();
+    });
+}
+
+function renderQuestionsEdit() {
     const editQuestionsContainer = document.getElementById("edit-questions-container");
+
+    editQuestionsContainer.innerHTML = "";
 
     currentExam.questions.forEach(function(question, questionIndex) {
         const questionDiv = document.createElement("div");
@@ -179,44 +301,50 @@ function renderEditMode() {
 
         editQuestionsContainer.appendChild(questionDiv);
     });
-
-    const saveButton = document.getElementById("save-changes-btn");
-    const cancelButton = document.getElementById("cancel-edit-btn");
-
-    saveButton.addEventListener("click", saveChanges);
-
-    cancelButton.addEventListener("click", function() {
-        renderViewMode();
-    });
 }
 
 function saveChanges() {
-    const titleInput = document.getElementById("edit-exam-title");
     const messageBox = document.getElementById("edit-message");
 
-    const newTitle = titleInput.value.trim();
+    const title = document.getElementById("edit-exam-title").value.trim();
+    const description = document.getElementById("edit-description").value.trim();
+    const category = document.getElementById("edit-category").value.trim();
+    const examCode = document.getElementById("edit-exam-code").value.trim();
+    const duration = document.getElementById("edit-duration").value.trim();
 
-    if (!newTitle) {
-        messageBox.textContent = "Exam title cannot be empty.";
-        messageBox.className = "message error";
+    if (!title) {
+        showEditError("Exam name cannot be empty.");
         return;
     }
 
-    currentExam.title = newTitle;
+    if (!examCode) {
+        showEditError("Exam code cannot be empty.");
+        return;
+    }
+
+    if (!duration || Number(duration) <= 0) {
+        showEditError("Duration must be a positive number.");
+        return;
+    }
+
+    currentExam.title = title;
+    currentExam.description = description;
+    currentExam.category = category;
+    currentExam.examCode = examCode;
+    currentExam.duration = duration;
 
     const questionTextInputs = document.querySelectorAll(".edit-question-text");
 
     for (const input of questionTextInputs) {
         const questionIndex = Number(input.dataset.questionIndex);
-        const newQuestionText = input.value.trim();
+        const questionText = input.value.trim();
 
-        if (!newQuestionText) {
-            messageBox.textContent = "Question text cannot be empty.";
-            messageBox.className = "message error";
+        if (!questionText) {
+            showEditError("Question text cannot be empty.");
             return;
         }
 
-        currentExam.questions[questionIndex].text = newQuestionText;
+        currentExam.questions[questionIndex].text = questionText;
     }
 
     const answerInputs = document.querySelectorAll(".edit-answer");
@@ -224,15 +352,14 @@ function saveChanges() {
     for (const input of answerInputs) {
         const questionIndex = Number(input.dataset.questionIndex);
         const answerIndex = Number(input.dataset.answerIndex);
-        const newAnswerText = input.value.trim();
+        const answerText = input.value.trim();
 
-        if (!newAnswerText) {
-            messageBox.textContent = "All answers must be filled.";
-            messageBox.className = "message error";
+        if (!answerText) {
+            showEditError("All answers must be filled.");
             return;
         }
 
-        currentExam.questions[questionIndex].answers[answerIndex] = newAnswerText;
+        currentExam.questions[questionIndex].answers[answerIndex] = answerText;
     }
 
     const correctAnswerInputs = document.querySelectorAll(".edit-correct-answer");
@@ -242,8 +369,7 @@ function saveChanges() {
         const correctAnswerNumber = Number(input.value);
 
         if (correctAnswerNumber < 1 || correctAnswerNumber > 4) {
-            messageBox.textContent = "Correct answer must be between 1 and 4.";
-            messageBox.className = "message error";
+            showEditError("Correct answer must be a number from 1 to 4.");
             return;
         }
 
@@ -258,4 +384,11 @@ function saveChanges() {
     setTimeout(function() {
         renderViewMode();
     }, 1000);
+}
+
+function showEditError(message) {
+    const messageBox = document.getElementById("edit-message");
+
+    messageBox.textContent = message;
+    messageBox.className = "message error";
 }

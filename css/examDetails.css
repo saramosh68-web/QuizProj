@@ -7,7 +7,7 @@ body {
 
 .page-container {
     width: 90%;
-    max-width: 850px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 40px 0;
 }
@@ -31,10 +31,6 @@ body {
     font-weight: bold;
 }
 
-.back-link:hover {
-    text-decoration: underline;
-}
-
 .details-card {
     background-color: white;
     padding: 35px;
@@ -42,20 +38,14 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-.details-card h2 {
-    color: #1f2937;
-    margin-top: 0;
-}
-
-.details-card h3 {
-    color: #374151;
-}
-
-.details-card p {
+.exam-info-section p {
     color: #4b5563;
+    margin: 8px 0;
 }
 
-.question-details-card {
+.question-details-card,
+.question-edit-card,
+.result-card {
     background-color: #f9fafb;
     border: 1px solid #d1d5db;
     border-radius: 12px;
@@ -63,25 +53,9 @@ body {
     margin-bottom: 15px;
 }
 
-.question-details-card h4 {
-    margin-top: 0;
-    color: #374151;
-}
-
-.question-details-card li {
-    margin-bottom: 8px;
-    color: #374151;
-}
-
 .correct-answer {
     color: #16a34a;
     font-weight: bold;
-}
-
-.error-message {
-    color: #dc2626;
-    font-weight: bold;
-    text-align: center;
 }
 
 .form-group {
@@ -95,16 +69,24 @@ body {
     font-weight: bold;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #d1d5db;
     border-radius: 10px;
     font-size: 15px;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.form-group input:focus {
+.form-group textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
     outline: none;
     border-color: #2563eb;
 }
@@ -131,18 +113,6 @@ body {
     background-color: #6b7280;
 }
 
-.question-edit-card {
-    background-color: #f9fafb;
-    border: 1px solid #d1d5db;
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 18px;
-}
-
-.edit-actions {
-    margin-top: 20px;
-}
-
 .message {
     min-height: 20px;
     font-weight: bold;
@@ -153,6 +123,15 @@ body {
     color: #16a34a;
 }
 
-.message.error {
+.message.error,
+.error-message {
     color: #dc2626;
+    font-weight: bold;
+}
+
+.empty-message {
+    color: #6b7280;
+    background-color: #f3f4f6;
+    padding: 15px;
+    border-radius: 10px;
 }

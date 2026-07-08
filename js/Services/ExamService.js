@@ -2,79 +2,90 @@ import { Exam } from "../models/Exam.js";
 import { Question } from "../models/Question.js";
 
 export class ExamService {
-  constructor() {
-    this.storageKey = "exams";
-  }
-
-  getAllExams() {
-    const data = localStorage.getItem(this.storageKey);
-
-    if (!data) {
-      return [];
+    constructor() {
+        this.storageKey = "exams";
     }
 
-    const plainExams = JSON.parse(data);
+    getAllExams() {
+        const data = localStorage.getItem(this.storageKey);
 
-    return plainExams.map(examData => {
-      const exam = new Exam(examData.title);
+        if (!data) {
+            return [];
+        }
 
-      exam.id = examData.id;
-      exam.createdAt = examData.createdAt;
-      exam.teacherId = examData.teacherId;
-      exam.teacherName = examData.teacherName;
+        const plainExams = JSON.parse(data);
 
-      exam.questions = examData.questions.map(questionData => {
-        const question = new Question(
-          questionData.text,
-          questionData.answers,
-          questionData.correctAnswerIndex
-        );
+        return plainExams.map(function(examData) {
+            const exam = new Exam(
+                examData.title,
+                examData.teacherId,
+                examData.teacherName,
+                examData.description || "",
+                examData.category || "",
+                examData.examCode || "",
+                examData.duration || ""
+            );
 
-        question.id = questionData.id;
+            exam.id = examData.id;
+            exam.createdAt = examData.createdAt;
 
-        return question;
-      });
+            exam.questions = examData.questions.map(function(questionData) {
+                const question = new Question(
+                    questionData.text,
+                    questionData.answers,
+                    questionData.correctAnswerIndex
+                );
 
-      return exam;
-    });
-  }
+                question.id = questionData.id;
 
-  saveExam(exam) {
-    const exams = this.getAllExams();
+                return question;
+            });
 
-    exams.push(exam);
+            return exam;
+        });
+    }
 
-    localStorage.setItem(this.storageKey, JSON.stringify(exams));
-  }
-  updateExam(updatedExam) {
-    const exams = this.getAllExams();
+    saveExam(exam) {
+        const exams = this.getAllExams();
 
-    const updatedExams = exams.map(function (exam) {
-      if (exam.id === updatedExam.id) {
-        return updatedExam;
-      }
+        exams.push(exam);
 
-      return exam;
-    });
+        localStorage.setItem(this.storageKey, JSON.stringify(exams));
+    }
 
-    localStorage.setItem(this.storageKey, JSON.stringify(updatedExams));
-  }
+    updateExam(updatedExam) {
+        const exams = this.getAllExams();
 
-  deleteExam(examId) {
-    const exams = this.getAllExams();
+        const updatedExams = exams.map(function(exam) {
+            if (exam.id === updatedExam.id) {
+                return updatedExam;
+            }
 
-    const filteredExams = exams.filter(exam => exam.id !== examId);
+            return exam;
+        });
 
-    localStorage.setItem(this.storageKey, JSON.stringify(filteredExams));
-  }
+        localStorage.setItem(this.storageKey, JSON.stringify(updatedExams));
+    }
 
-  getExamById(examId) {
-    const exams = this.getAllExams();
+    deleteExam(examId) {
+        const exams = this.getAllExams();
 
-    return exams.find(exam => exam.id === examId);
-  }
+        const filteredExams = exams.filter(function(exam) {
+            return exam.id !== examId;
+        });
 
-  clearAllExams() {
-    localStorage.removeItem(this.storageKey);
-  }
+        localStorage.setItem(this.storageKey, JSON.stringify(filteredExams));
+    }
+
+    getExamById(examId) {
+        const exams = this.getAllExams();
+
+        return exams.find(function(exam) {
+            return exam.id === examId;
+        });
+    }
+
+    clearAllExams() {
+        localStorage.removeItem(this.storageKey);
+    }
 }
