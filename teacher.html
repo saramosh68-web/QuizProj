@@ -15,7 +15,10 @@
 
         <header class="dashboard-header">
             <h1>Teacher Dashboard</h1>
-            <p id="teacher-name">Welcome, Teacher</p>
+
+            <p id="teacher-name">
+                Welcome, Teacher
+            </p>
 
             <button id="logout-btn" class="logout-button">
                 Logout
@@ -27,7 +30,7 @@
             <h2>Manage Exams</h2>
 
             <p class="dashboard-subtitle">
-                Create new exams, view existing exams, and manage exam details.
+                Create new exams, view your existing exams, and manage exam details.
             </p>
 
             <div class="dashboard-actions">
@@ -36,25 +39,16 @@
                     Create New Exam
                 </a>
 
-                <a href="examDetails.html" class="dashboard-button secondary">
-                    Exam Details
-                </a>
-
             </div>
+
             <section class="my-exams-section">
                 <h2>My Exams</h2>
-                <div id="teacher-exam-list"></div>
-            </section>
-            <section class="info-section">
-                <h3>Teacher can:</h3>
 
-                <ul>
-                    <li>Create exams</li>
-                    <li>Add American questions</li>
-                    <li>Choose the correct answer</li>
-                    <li>Save exams in localStorage</li>
-                    <li>View exams created by the teacher</li>
-                </ul>
+                <p class="section-subtitle">
+                    Here you can see all exams created by you.
+                </p>
+
+                <div id="teacher-exam-list"></div>
             </section>
 
         </main>

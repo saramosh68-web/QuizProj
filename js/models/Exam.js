@@ -1,16 +1,18 @@
 export class Exam {
-  constructor(title) {
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.questions = [];
-    this.createdAt = new Date().toISOString();
-  }
-  
-  addQuestion(question) {
-    this.questions.push(question);
-  }
+    constructor(title, teacherId, teacherName) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.teacherId = teacherId;
+        this.teacherName = teacherName;
+        this.questions = [];
+        this.createdAt = new Date().toISOString();
+    }
 
-  getQuestionCount() {
-    return this.questions.length;
-  }
+    addQuestion(question) {
+        this.questions.push(question);
+    }
+
+    getQuestionCount() {
+        return this.questions.length;
+    }
 }

@@ -106,3 +106,55 @@ body {
     margin-bottom: 8px;
     color: #374151;
 }
+.my-exams-section {
+    margin-top: 30px;
+}
+
+.exam-card {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.exam-card h3 {
+    margin-top: 0;
+    color: #1f2937;
+}
+
+.exam-card p {
+    color: #6b7280;
+    margin: 8px 0;
+}
+
+.exam-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.small-button {
+    border: none;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.small-button.view {
+    background-color: #2563eb;
+}
+
+.small-button.delete {
+    background-color: #dc2626;
+}
+
+.empty-message {
+    color: #6b7280;
+    background-color: #f3f4f6;
+    padding: 15px;
+    border-radius: 10px;
+}

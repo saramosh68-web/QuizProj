@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Exam</title>
+
+    <link rel="stylesheet" href="css/createExam.css">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <header class="page-header">
+            <h1>Create New Exam</h1>
+            <a href="teacher.html" class="back-link">Back to Teacher Dashboard</a>
+        </header>
+
+        <main class="exam-card">
+
+            <div class="form-group">
+                <label for="exam-title">Exam Title</label>
+                <input
+                    type="text"
+                    id="exam-title"
+                    placeholder="Example: JavaScript Basics">
+            </div>
+
+            <hr>
+
+            <h2>Add Question</h2>
+
+            <div class="form-group">
+                <label for="question-text">Question Text</label>
+                <input
+                    type="text"
+                    id="question-text"
+                    placeholder="Enter question text">
+            </div>
+
+            <div class="form-group">
+                <label for="answer-1">Answer 1</label>
+                <input type="text" id="answer-1">
+            </div>
+
+            <div class="form-group">
+                <label for="answer-2">Answer 2</label>
+                <input type="text" id="answer-2">
+            </div>
+
+            <div class="form-group">
+                <label for="answer-3">Answer 3</label>
+                <input type="text" id="answer-3">
+            </div>
+
+            <div class="form-group">
+                <label for="answer-4">Answer 4</label>
+                <input type="text" id="answer-4">
+            </div>
+
+            <div class="form-group">
+                <label for="correct-answer">Correct Answer Number</label>
+                <input
+                    type="number"
+                    id="correct-answer"
+                    min="1"
+                    max="4"
+                    placeholder="1-4">
+            </div>
+
+            <p id="create-exam-message" class="message"></p>
+
+            <div class="buttons-row">
+                <button id="add-question-btn" class="action-button secondary">
+                    Add Question
+                </button>
+
+                <button id="save-exam-btn" class="action-button primary">
+                    Save Exam
+                </button>
+            </div>
+
+            <section class="questions-preview">
+                <h2>Questions Added</h2>
+                <div id="questions-list">
+                    <p class="empty-message">No questions added yet.</p>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="js/createExam.js"></script>
+</body>
+
+</html>

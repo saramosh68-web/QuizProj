@@ -10,10 +10,12 @@ const examService = new ExamService();
 
 const currentUserData = localStorage.getItem(CURRENT_USER_KEY);
 
+let currentUser = null;
+
 if (!currentUserData) {
     window.location.href = "pageSignIn.html";
 } else {
-    const currentUser = JSON.parse(currentUserData);
+    currentUser = JSON.parse(currentUserData);
 
     if (currentUser.role !== "teacher") {
         window.location.href = "student.html";
@@ -27,7 +29,7 @@ function renderTeacherExams(currentUser) {
     const allExams = examService.getAllExams();
 
     const teacherExams = allExams.filter(function(exam) {
-        return exam.teacherId === currentUser.id;
+        return String(exam.teacherId) === String(currentUser.id);
     });
 
     teacherExamList.innerHTML = "";
@@ -64,3 +66,23 @@ function renderTeacherExams(currentUser) {
         teacherExamList.appendChild(examCard);
     });
 }
+
+teacherExamList.addEventListener("click", function(event) {
+    if (event.target.classList.contains("delete")) {
+        const examId = event.target.dataset.id;
+
+        const confirmed = confirm("Are you sure you want to delete this exam?");
+
+        if (!confirmed) {
+            return;
+        }
+
+        examService.deleteExam(examId);
+        renderTeacherExams(currentUser);
+    }
+});
+
+logoutButton.addEventListener("click", function () {
+    localStorage.removeItem(CURRENT_USER_KEY);
+    window.location.href = "mainPage.html";
+});

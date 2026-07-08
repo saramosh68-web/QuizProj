@@ -20,6 +20,8 @@ export class ExamService {
 
       exam.id = examData.id;
       exam.createdAt = examData.createdAt;
+      exam.teacherId = examData.teacherId;
+      exam.teacherName = examData.teacherName;
 
       exam.questions = examData.questions.map(questionData => {
         const question = new Question(
@@ -43,6 +45,19 @@ export class ExamService {
     exams.push(exam);
 
     localStorage.setItem(this.storageKey, JSON.stringify(exams));
+  }
+  updateExam(updatedExam) {
+    const exams = this.getAllExams();
+
+    const updatedExams = exams.map(function (exam) {
+      if (exam.id === updatedExam.id) {
+        return updatedExam;
+      }
+
+      return exam;
+    });
+
+    localStorage.setItem(this.storageKey, JSON.stringify(updatedExams));
   }
 
   deleteExam(examId) {

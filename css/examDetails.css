@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.page-container {
+    width: 90%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.page-header {
+    background-color: white;
+    padding: 25px 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0 0 12px;
+    color: #1f2937;
+}
+
+.back-link {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.details-card {
+    background-color: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.details-card h2 {
+    color: #1f2937;
+    margin-top: 0;
+}
+
+.details-card h3 {
+    color: #374151;
+}
+
+.details-card p {
+    color: #4b5563;
+}
+
+.question-details-card {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.question-details-card h4 {
+    margin-top: 0;
+    color: #374151;
+}
+
+.question-details-card li {
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.correct-answer {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.error-message {
+    color: #dc2626;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #374151;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.action-button {
+    border: none;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 8px 8px 8px 0;
+}
+
+.action-button.edit {
+    background-color: #2563eb;
+}
+
+.action-button.save {
+    background-color: #16a34a;
+}
+
+.action-button.cancel {
+    background-color: #6b7280;
+}
+
+.question-edit-card {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.edit-actions {
+    margin-top: 20px;
+}
+
+.message {
+    min-height: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.message.success {
+    color: #16a34a;
+}
+
+.message.error {
+    color: #dc2626;
+}
