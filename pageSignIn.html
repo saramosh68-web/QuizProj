@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+
+    <link rel="stylesheet" href="css/SignIn.css">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <h1>Sign In</h1>
+
+            <p class="auth-subtitle">
+                Login to your account
+            </p>
+
+            <form id="signin-form" class="auth-form">
+
+                <div class="form-group">
+                    <label for="signin-email">Email</label>
+                    <input 
+                        type="email" 
+                        id="signin-email" 
+                        placeholder="Enter your email" 
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input 
+                        type="password" 
+                        id="signin-password" 
+                        placeholder="Enter your password" 
+                        required>
+                </div>
+
+                <p id="signin-message" class="message"></p>
+
+                <button type="submit" class="auth-button login-button">
+                    Sign In
+                </button>
+
+            </form>
+
+            <p class="auth-link">
+                Don't have an account?
+                <a href="pageSignUp.html">Sign Up</a>
+            </p>
+
+            <p class="auth-link">
+                <a href="mainPage.html">Back to Home</a>
+            </p>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="js/signIn.js"></script>
+</body>
+
+</html>
